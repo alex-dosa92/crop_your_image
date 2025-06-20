@@ -520,12 +520,9 @@ class _CropEditorState extends State<_CropEditor> {
   }
 
   void _reset() {
-    final builder = widget.initialRectBuilder;
-
-      _updateCropRect(_readyState);
-
+    _updateCropRect(_readyState);
     _resetCropRect();
-          _applyScale(_readyState.scaleToCover);
+    _applyScale(_readyState.scaleToCover);
 
     widget.onStatusChanged?.call(CropStatus.ready);
   }
