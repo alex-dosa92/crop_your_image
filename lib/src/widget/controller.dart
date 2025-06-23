@@ -41,6 +41,9 @@ class CropController {
 
   /// request redo
   void redo() => _delegate.onRedo();
+
+  /// request reset
+  void reset() => _delegate.onReset();
 }
 
 /// Delegate of actions from [CropController]
@@ -69,4 +72,7 @@ class CropControllerDelegate {
 
   /// callback that [CropController.redo] is called.
   late VoidCallback onRedo;
+
+  late VoidCallback onReset;
+
 }

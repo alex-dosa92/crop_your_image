@@ -329,7 +329,8 @@ class _CropEditorState extends State<_CropEditor> {
         _resizeWithArea(newArea);
       }
       ..onUndo = _undo
-      ..onRedo = _redo;
+      ..onRedo = _redo
+      ..onReset = _reset;
 
     // prepare for history state
     _historyState = HistoryState(onHistoryChanged: widget.onHistoryChanged);
@@ -367,6 +368,8 @@ class _CropEditorState extends State<_CropEditor> {
     setState(() => _viewState = newState);
     widget.onMoved?.call(_readyState.cropRect, _readyState.rectToCrop);
   }
+
+
 
   /// reset image to be cropped
   void _resetImage(Uint8List targetImage) {
@@ -514,6 +517,14 @@ class _CropEditorState extends State<_CropEditor> {
     if (last != null) {
       _updateCropRect(last);
     }
+  }
+
+  void _reset() {
+    _updateCropRect(_readyState);
+    _resetCropRect();
+    _applyScale(_readyState.scaleToCover);
+
+    widget.onStatusChanged?.call(CropStatus.ready);
   }
 
   /// crop given image with given area.
